@@ -12,14 +12,14 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="pin-generator half-width">
-                    <input id="pinDisplay" class="form-control" type="text">
+                    <input id="pinDisplay" class="form-control" type="text" value="">
                     <button id="generatePin" class="generate-btn">Generate Pin</button>
                 </div>
             </div>
             <div class="col-md-6">
                 <form id="formName" action="" name="form">
                 <div class="input-section half-width">
-                    <input id="input" class="form-control" type="text" name="display">
+                    <input id="input" class="form-control" type="text"  value="">
                     <div class="numbers">
                         <div class="calc-body">
                             <div class="calc-button-row">
@@ -28,6 +28,7 @@
                               <div class="button" onclick="calculate(this.innerText)">9</div>
                             </div>
                             <div class="calc-button-row">
+                                
                               <div class="button" onclick="calculate(this.innerText)">4</div>
                               <div class="button" onclick="calculate(this.innerText)">5</div>
                               <div class="button" onclick="calculate(this.innerText)">6</div>
@@ -38,7 +39,7 @@
                               <div class="button" onclick="calculate(this.innerText)">3</div>
                             </div>
                             <div class="calc-button-row">
-                                <div class="button"><</div>
+                                <div class="button" onclick="deleteLastItem()"><</div>
                                 <div class="button" onclick="calculate(this.innerText)">0</div>
                                 <div id="cButton" class="button" onclick="cButton(this.innerText)">C</div>
                             </div>
@@ -51,8 +52,8 @@
             </div>
         </div>
         <div class="notify-section">
-            <p class="notify">❌ Pin Didn't Match, Please try again</p>
-            <p class="notify">✅ Pin Matched... Secret door is opening for you</p>
+            <p id="error" class="notify">❌ Pin Didn't Match, Please try again</p>
+            <p id="success" class="notify">✅ Pin Matched... Secret door is opening for you</p>
         </div>
     </form>
     </div>
@@ -69,35 +70,49 @@
 
 
     });
-       var input = document.getElementById('input').value;
-       var pinDisplay = document.getElementById('pinDisplay').value;
-    //    var form = document.getElementById('formName')
+       var input = document.getElementById('input');
+       var pinDisplay = document.getElementById('pinDisplay');
      
 
     var submitButton = document.getElementById('submitButton');
     submitButton.addEventListener('click', function(){
-        if(input === pinDisplay){
-              console.log("✅ Pin Matched... Secret door is opening for you") ;
+     
+        var abcd = parseInt(input.value);
+        var efgh = parseInt(pinDisplay.value);
+      
+        if(abcd === efgh){
+              document.getElementById('success').style.display= 'block';
           }
          else {
             
-             console.log("❌ Pin Didn't Match, Please try again")
+            document.getElementById('error').style.display= 'block';
             }
          
     });
+   
 
          
-       
-  
-          
-       
-
+ 
 
      function calculate(number) {
-    form.display.value += number;
+    input.value += number;
     }
+
+
+
+
+function deleteLastItem() {
+    var lastDel = input.value;
+   var lastDelNumber = lastDel.slice(0, -1);
+
+    input.value = lastDelNumber;
+
+    
+}
+
+
     function cButton() {
-    form.display.value = '';
+    input.value = '';
     }
 
     </script>
