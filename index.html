@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pin Generator</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="container">
         <div class="row">
@@ -18,103 +21,92 @@
             </div>
             <div class="col-md-6">
                 <form id="formName" action="" name="form">
-                <div class="input-section half-width">
-                    <input id="input" class="form-control" type="text"  value="">
-                    <div class="numbers">
-                        <div class="calc-body">
-                            <div class="calc-button-row">
-                              <div class="button" onclick="calculate(this.innerText)">7</div>
-                              <div class="button" onclick="calculate(this.innerText)">8</div>
-                              <div class="button" onclick="calculate(this.innerText)">9</div>
+                    <div class="input-section half-width">
+                        <input id="input" class="form-control" type="text" value="">
+                        <div class="numbers">
+                            <div class="calc-body">
+                                <div class="calc-button-row">
+                                    <div class="button" onclick="calculate(this.innerText)">7</div>
+                                    <div class="button" onclick="calculate(this.innerText)">8</div>
+                                    <div class="button" onclick="calculate(this.innerText)">9</div>
+                                </div>
+                                <div class="calc-button-row">
+
+                                    <div class="button" onclick="calculate(this.innerText)">4</div>
+                                    <div class="button" onclick="calculate(this.innerText)">5</div>
+                                    <div class="button" onclick="calculate(this.innerText)">6</div>
+                                </div>
+                                <div class="calc-button-row">
+                                    <div class="button" onclick="calculate(this.innerText)">1</div>
+                                    <div class="button" onclick="calculate(this.innerText)">2</div>
+                                    <div class="button" onclick="calculate(this.innerText)">3</div>
+                                </div>
+                                <div class="calc-button-row">
+                                    <div class="button" onclick="deleteLastItem()"> < </div>
+                                       
+                                            <div class="button" onclick="calculate(this.innerText)">0</div>
+                                            <div id="cButton" class="button" onclick="cButton(this.innerText)">C</div>
+                                    </div>
+                                    <div>
+                                        <button id="submitButton" type="button" class="submit-btn">Submit</button>
+                                        <p class="action-left">3 try left</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="calc-button-row">
-                                
-                              <div class="button" onclick="calculate(this.innerText)">4</div>
-                              <div class="button" onclick="calculate(this.innerText)">5</div>
-                              <div class="button" onclick="calculate(this.innerText)">6</div>
-                            </div>
-                            <div class="calc-button-row">
-                              <div class="button" onclick="calculate(this.innerText)">1</div>
-                              <div class="button" onclick="calculate(this.innerText)">2</div>
-                              <div class="button" onclick="calculate(this.innerText)">3</div>
-                            </div>
-                            <div class="calc-button-row">
-                                <div class="button" onclick="deleteLastItem()"><</div>
-                                <div class="button" onclick="calculate(this.innerText)">0</div>
-                                <div id="cButton" class="button" onclick="cButton(this.innerText)">C</div>
-                            </div>
-                            <div>
-                                <button id="submitButton" type="button" class="submit-btn">Submit</button>
-                                <p class="action-left">3 try left</p>
-                            </div>
+                        </div>
                     </div>
-                </div>
+                    <div class="notify-section">
+                        <p id="error" class="notify">❌ Pin Didn't Match, Please try again</p>
+                        <p id="success" class="notify">✅ Pin Matched... Secret door is opening for you</p>
+                    </div>
+                </form>
             </div>
-        </div>
-        <div class="notify-section">
-            <p id="error" class="notify">❌ Pin Didn't Match, Please try again</p>
-            <p id="success" class="notify">✅ Pin Matched... Secret door is opening for you</p>
-        </div>
-    </form>
-    </div>
 
 
 
-    <script>
-     document.getElementById('generatePin').addEventListener('click', function(){
-       
-           var randomNum = Math.random() * 9999;
-           var result = Math.ceil(randomNum);
-          document.getElementById('pinDisplay').value = result;
+            <script>
+                // generate-pin display start
+                document.getElementById('generatePin').addEventListener('click', function () {
+
+                    var randomNum = Math.random() * 9999;
+                    var result = Math.ceil(randomNum);
+                    document.getElementById('pinDisplay').value = result;
+                });
+
+                var input = document.getElementById('input');
+                var pinDisplay = document.getElementById('pinDisplay');
 
 
+                var submitButton = document.getElementById('submitButton');
+                submitButton.addEventListener('click', function () {
+                    var inputNumber = parseInt(input.value);
+                    var pinDisplayNumber = parseInt(pinDisplay.value);
+                    if (inputNumber === pinDisplayNumber) {
+                        document.getElementById('success').style.display = 'block';
+                    }
+                    else {
+                        document.getElementById('error').style.display = 'block';
+                    }
 
-    });
-       var input = document.getElementById('input');
-       var pinDisplay = document.getElementById('pinDisplay');
-     
+                });
 
-    var submitButton = document.getElementById('submitButton');
-    submitButton.addEventListener('click', function(){
-     
-        var abcd = parseInt(input.value);
-        var efgh = parseInt(pinDisplay.value);
-      
-        if(abcd === efgh){
-              document.getElementById('success').style.display= 'block';
-          }
-         else {
-            
-            document.getElementById('error').style.display= 'block';
-            }
-         
-    });
-   
+                // number pad start
 
-         
- 
+                function calculate(number) {
+                    input.value += number;
+                }
 
-     function calculate(number) {
-    input.value += number;
-    }
+                function deleteLastItem() {
+                    var lastDel = input.value;
+                    var lastDelNumber = lastDel.slice(0, -1);
+                    input.value = lastDelNumber;
+                }
 
+                function cButton() {
+                    input.value = '';
+                }
 
-
-
-function deleteLastItem() {
-    var lastDel = input.value;
-   var lastDelNumber = lastDel.slice(0, -1);
-
-    input.value = lastDelNumber;
-
-    
-}
-
-
-    function cButton() {
-    input.value = '';
-    }
-
-    </script>
+            </script>
 </body>
+
 </html>
